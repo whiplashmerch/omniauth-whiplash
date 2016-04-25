@@ -44,6 +44,7 @@ end
 ```
 
 NOTE: The default scope is `read_user` and is required as part of the `scope` argument, if it's passed in.
+
 ALSO: The scope arguments should be passed in *separated by spaces, not commas*, as per above.
 
 ## Development
