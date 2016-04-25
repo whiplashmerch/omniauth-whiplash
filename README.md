@@ -1,8 +1,6 @@
 # Omniauth::Whiplash
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/omniauth/whiplash`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Whiplash OAuth2 Strategy for OmniAuth 1.0.
 
 ## Installation
 
@@ -22,7 +20,31 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+`OmniAuth::Strategies::Whiplash` is simply a Rack middleware. Read the OmniAuth 1.0 docs for detailed instructions.
+
+Here's a quick example, adding the middleware to a Rails app in config/initializers/omniauth.rb:
+
+```ruby
+Rails.application.config.middleware.use OmniAuth::Builder do
+  provider :whiplash, ENV['WHILASH_CLIENT_ID'], ENV['WHIPLASH_CLIENT_SECRET']
+end
+```
+
+## Configuration
+
+You can configure the scope, which you pass in to the provider method via a Hash:
+
+`scope`: A comma-separated list of permissions you want to request from the user. See the Shopify API docs for a full list of available permissions.
+For example, to request read_products, read_orders and write_content permissions and display the authentication page:
+
+```ruby
+Rails.application.config.middleware.use OmniAuth::Builder do
+  provider :whiplash, ENV['WHILASH_CLIENT_ID'], ENV['WHIPLASH_CLIENT_SECRET'], scope: 'read_orders write_orders read_items write_items read_web_hooks write_web_hooks read_customers read_user'
+end
+```
+
+NOTE: The default scope is `read_user` and is required as part of the `scope` argument, if it's passed in.
+ALSO: The scope arguments should be passed in *separated by spaces, not commas*, as per above.
 
 ## Development
 
@@ -32,10 +54,9 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/omniauth-whiplash.
+Bug reports and pull requests are welcome on GitHub at https://github.com/whiplashmerch/omniauth-whiplash.
 
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
