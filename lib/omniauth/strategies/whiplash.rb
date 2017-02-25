@@ -4,7 +4,7 @@ module OmniAuth
       option :name, :whiplash
 
       option :client_options, {
-        site: "https://www.whiplashmerch.com",
+        site: "https://www.getwhiplash.com",
         authorize_url: "oauth/authorize",
         request_token_url: "oauth/authorize",
         access_token_url: "oauth/token"
