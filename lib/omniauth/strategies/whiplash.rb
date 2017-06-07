@@ -4,7 +4,7 @@ module OmniAuth
       option :name, :whiplash
 
       option :client_options, {
-        site: ENV.fetch('WHIPLASH_API_URL', nil) || "https://www.getwhiplash.com",
+        site: ENV['WHIPLASH_API_URL'] || "https://www.getwhiplash.com",
         authorize_url: "/oauth/authorize"
       }
 
