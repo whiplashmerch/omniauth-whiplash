@@ -4,42 +4,28 @@ module OmniAuth
       option :name, :whiplash
 
       option :client_options, {
-        site: "https://www.getwhiplash.com",
-        authorize_url: "oauth/authorize",
-        request_token_url: "oauth/authorize",
-        access_token_url: "oauth/token"
+        site: ENV['WHIPLASH_API_URL'] || "https://www.getwhiplash.com",
+        authorize_url: "/oauth/authorize"
       }
 
       uid { raw_info["id"] }
 
       info do
-        { email: raw_info["email"], name: user_full_name }
-      end
-
-      extra do
-        { raw_info: raw_info }
-      end
-
-      def callback_url
-        options[:callback_url] || super
-      end
-
-      def user_full_name
-        "#{raw_info['first_name']} #{raw_info['last_name']}".strip
+        {
+          email: raw_info["email"],
+          first_name: raw_info["first_name"],
+          last_name: raw_info["last_name"],
+          role: raw_info["role"]
+        }
       end
 
       def raw_info
-        @raw_info ||= access_token.get('/api/v2/me.json').parsed
+        @raw_info ||= access_token.get('/api/v2/me').parsed
       end
 
-      def authorize_params
-        super.tap do |params|
-          %w[scope client_options].each do |v|
-            if request.params[v]
-              params[v.to_sym] = request.params[v]
-            end
-          end
-        end
+      # https://github.com/intridea/omniauth-oauth2/issues/81
+      def callback_url
+        full_host + script_name + callback_path
       end
     end
   end
