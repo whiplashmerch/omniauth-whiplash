@@ -26,14 +26,14 @@ Here's a quick example, adding the middleware to a Rails app in config/initializ
 
 ```ruby
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :whiplash, ENV.fetch('WHIPLASH_CLIENT_ID'), ENV.fetch('WHIPLASH_CLIENT_SECRET'), scope: ENV.fetch('WHIPLASH_CLIENT_SCOPE')
+  provider :whiplash, ENV.fetch('WHIPLASH_CLIENT_ID'), ENV.fetch('WHIPLASH_CLIENT_SECRET'), scope: ENV.fetch('WHIPLASH_CLIENT_SCOPE'), client_options: {site: ENV.fetch('WHIPLASH_API_URL')}
 end
 ```
 
 If you are using Devise, you can skip the above and instead include this to your Devise configuration in `initializers/devise.rb`:
 
 ```ruby
-config.omniauth :whiplash, ENV.fetch('WHIPLASH_CLIENT_ID'), ENV.fetch('WHIPLASH_CLIENT_SECRET'), scope: ENV.fetch('WHIPLASH_CLIENT_SCOPE')
+config.omniauth :whiplash, ENV.fetch('WHIPLASH_CLIENT_ID'), ENV.fetch('WHIPLASH_CLIENT_SECRET'), scope: ENV.fetch('WHIPLASH_CLIENT_SCOPE'), client_options: {site: ENV.fetch('WHIPLASH_API_URL')}
 ```
 
 Please refer to the Whiplash API documentation for information regarding scopes.
