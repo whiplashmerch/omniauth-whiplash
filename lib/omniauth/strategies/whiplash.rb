@@ -16,6 +16,7 @@ module OmniAuth
           first_name: raw_info["first_name"],
           last_name: raw_info["last_name"],
           role: raw_info["role"],
+          locale: raw_info["locale"],
           partner_id: raw_info["partner_id"],
           warehouse_id: raw_info["warehouse_id"],
           customer_ids: raw_info["customer_ids"]
